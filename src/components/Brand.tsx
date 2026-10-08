@@ -1,0 +1,6 @@
+export default function Brand({ compact = false, name = 'Telegram' }: { compact?: boolean; name?: string }) {
+  return <div className={`brand ${compact ? 'compact' : ''}`} aria-label={name}>
+    <img src="/favicon.svg" width="44" height="44" alt="" />
+    {!compact && <span>{name}</span>}
+  </div>;
+}
