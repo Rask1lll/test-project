@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useReducer, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState, type CSSProperties, type FormEvent } from 'react';
 import { ArrowLeft, Check, CheckCheck, ChevronRight, CircleHelp, LogOut, MessageCircle, Plus, Search, Send, ShieldCheck, X } from 'lucide-react';
 import { createGreenApi, instanceStateMessage } from '../api/greenApi';
 import { delay, pollNotifications } from '../api/polling';
 import { chatReducer, createDemoState, initialChatState } from '../chatState';
 import type { Credentials, Message } from '../types';
 import Brand from './Brand';
+import { useMobileViewportHeight } from '../useMobileViewportHeight';
 import NewChatDialog from './NewChatDialog';
 
 export type Session = { mode: 'demo' } | { mode: 'live'; credentials: Credentials; statusesEnabled: boolean };
@@ -25,6 +26,7 @@ function Avatar({ name, index = 0, small = false }: { name: string; index?: numb
 
 export default function ChatWorkspace({ session, onLogout }: { session: Session; onLogout: () => void }) {
   const demo = session.mode === 'demo';
+  const viewportHeight = useMobileViewportHeight();
   const name = 'Telegram';
   const [state, dispatch] = useReducer(chatReducer, undefined, () => demo ? createDemoState() : initialChatState);
   const [newChatOpen, setNewChatOpen] = useState(false);
@@ -80,6 +82,9 @@ export default function ChatWorkspace({ session, onLogout }: { session: Session;
 
   useEffect(() => { bottom.current?.scrollIntoView({ behavior: 'instant', block: 'end' }); }, [selected?.id, selected?.messages, typing]);
   useEffect(() => {
+    if (document.activeElement === textarea.current) bottom.current?.scrollIntoView({ block: 'end' });
+  }, [viewportHeight]);
+  useEffect(() => {
     if (textarea.current) {
       textarea.current.style.height = 'auto';
       textarea.current.style.height = `${Math.min(textarea.current.scrollHeight, 140)}px`;
@@ -130,7 +135,7 @@ export default function ChatWorkspace({ session, onLogout }: { session: Session;
   }
   function submit(event: FormEvent) { event.preventDefault(); void send(); }
 
-  return <main className={`workspace ${selected ? 'has-selection' : ''} ${helpOpen ? 'help-open' : ''}`}>
+  return <main className={`workspace ${selected ? 'has-selection' : ''} ${helpOpen ? 'help-open' : ''}`} style={viewportHeight ? { '--mobile-height': `${viewportHeight}px` } as CSSProperties : undefined}>
     <aside className="sidebar" aria-label="Список чатов">
       <div className="workspace-top"><Brand /><nav aria-label="Приложение"><button className="icon-button" onClick={() => setHelpOpen(!helpOpen)} aria-label="Помощь" aria-expanded={helpOpen}><CircleHelp size={20} /></button><button className="icon-button" onClick={onLogout} aria-label="Выйти" title="Выйти"><LogOut size={20} /></button></nav></div>
       <header className="sidebar-header"><h1>Чаты <span>{state.chats.length}</span></h1><button className="icon-button new-chat-button" aria-label="Новый чат" title="Новый чат" onClick={() => setNewChatOpen(true)}><Plus size={22} /></button></header>
@@ -152,7 +157,7 @@ export default function ChatWorkspace({ session, onLogout }: { session: Session;
       {!demo && connectionError && <div className="connection-banner" role="status"><span>{connectionError}{connection === 'reconnecting' && ' Повторяем подключение автоматически.'}</span>{connection === 'stopped' && <button onClick={() => setRetryEpoch(n => n + 1)}>Переподключиться</button>}</div>}
       {helpOpen && <div className="help-panel"><div><strong>Как пользоваться чатом</strong><button className="icon-button" onClick={() => setHelpOpen(false)} aria-label="Закрыть помощь"><X size={18} /></button></div><p>Создайте чат по номеру телефона и отправьте сообщение. Ответы появятся автоматически. Enter — отправить, Shift + Enter — новая строка.</p><p>Для подключения: авторизованный инстанс {name}, пустой Webhook URL и включённые входящие уведомления. История хранится в памяти до выхода или перезагрузки.</p><a href="https://green-api.com/telegram/docs/api/receiving/technology-http-api/" target="_blank" rel="noreferrer">Инструкция GREEN-API</a></div>}
       {selected ? <>
-        <header className="conversation-header"><button className="icon-button back-button" aria-label="Назад к чатам" onClick={() => dispatch({ type: 'select', id: null })}><ArrowLeft size={22} /></button><Avatar name={selected.name} index={state.chats.indexOf(selected)} small /><div><h2>{selected.name}</h2><p>{typing === selected.id ? 'Печатает…' : selected.phone ? `+${selected.phone}` : name}</p></div><span className="text-only"><MessageCircle size={16} /> Telegram</span></header>
+        <header className="conversation-header"><button className="icon-button back-button" aria-label="Назад к чатам" onClick={() => dispatch({ type: 'select', id: null })}><ArrowLeft size={22} /></button><Avatar name={selected.name} index={state.chats.indexOf(selected)} small /><div className="conversation-person"><h2>{selected.name}</h2><p>{typing === selected.id ? 'Печатает…' : selected.phone ? `+${selected.phone}` : name}</p></div><span className="text-only"><MessageCircle size={16} /> Telegram</span></header>
         <div className="message-scroll" role="log" aria-label="Сообщения чата" aria-live="polite" aria-relevant="additions text">
           <div className="message-container">
             {selected.messages.length === 0 && <div className="chat-start"><Avatar name={selected.name} index={state.chats.indexOf(selected)} /><h3>Начните разговор</h3><p>Напишите первое сообщение {selected.phone ? `на номер +${selected.phone}` : 'в этом чате'}.</p></div>}

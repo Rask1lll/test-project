@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react';
 import { Eye, EyeOff, KeyRound, LockKeyhole, ShieldCheck } from 'lucide-react';
 import { createGreenApi, normalizeCredentials } from '../api/greenApi';
 import type { Credentials } from '../types';
 import Brand from './Brand';
+import { useMobileViewportHeight } from '../useMobileViewportHeight';
 
 export default function Login({ onConnect, onDemo }: {
   onConnect: (credentials: Credentials, statusesEnabled: boolean) => void;
   onDemo: () => void;
 }) {
   const name = 'Telegram';
+  const viewportHeight = useMobileViewportHeight();
   const [id, setId] = useState('');
   const [token, setToken] = useState('');
   const [url, setUrl] = useState('');
@@ -39,9 +41,9 @@ export default function Login({ onConnect, onDemo }: {
     }
   }
 
-  return <main className="login-page">
+  return <main className="login-page" style={viewportHeight ? { '--mobile-height': `${viewportHeight}px` } as CSSProperties : undefined}>
     <section className="login-panel" aria-labelledby="login-title">
-      <Brand />
+      <div className="login-brand"><Brand /></div>
       <div className="login-content">
         <h1 id="login-title">Подключение Telegram</h1>
         <p className="login-intro">Введите данные инстанса из <a href="https://console.green-api.com/" target="_blank" rel="noreferrer">кабинета GREEN-API</a>.</p>

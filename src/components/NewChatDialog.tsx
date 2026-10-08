@@ -14,6 +14,7 @@ export default function NewChatDialog({ onClose, onCreate }: {
   useEffect(() => {
     const element = dialog.current!;
     element.showModal();
+    element.querySelector<HTMLInputElement>('input')?.focus();
     return () => { controller.current?.abort(); element.close(); };
   }, []);
   async function submit(e: FormEvent) {
@@ -29,7 +30,7 @@ export default function NewChatDialog({ onClose, onCreate }: {
     catch (e) { if (!pending.signal.aborted) setError((e as Error).message); }
     finally { if (!pending.signal.aborted) setBusy(false); }
   }
-  return <dialog ref={dialog} className="new-chat-dialog" aria-labelledby="new-chat-title" onCancel={onClose} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+  return <dialog ref={dialog} className="new-chat-dialog" aria-labelledby="new-chat-title" onCancel={onClose} onClick={e => { if (e.target !== e.currentTarget) return; const bounds = e.currentTarget.getBoundingClientRect(); if (e.clientX < bounds.left || e.clientX > bounds.right || e.clientY < bounds.top || e.clientY > bounds.bottom) onClose(); }}>
     <button className="icon-button dialog-close" onClick={onClose} aria-label="Закрыть"><X size={21} /></button>
     <h2 id="new-chat-title">Новый чат</h2>
     <p>Введите номер человека, с которым хотите связаться в Telegram.</p>
