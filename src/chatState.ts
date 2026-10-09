@@ -29,7 +29,6 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
         const status: MessageStatus | undefined = ({ delivered: 'delivered', read: 'read', failed: 'failed', noAccount: 'failed', notInGroup: 'failed' } as Record<string, MessageStatus>)[b.status ?? ''];
         if (!status) return state;
         const previous = state.statuses[b.idMessage]?.status;
-        // A late delivery notification must never turn a read message back into delivered.
         if (previous === 'read' && status === 'delivered') return state;
         const error = status === 'failed' ? (b.status === 'noAccount' ? 'У получателя нет аккаунта мессенджера.' : 'Мессенджер не смог доставить сообщение.') : undefined;
         return { ...state, statuses: { ...state.statuses, [b.idMessage]: { status, error } }, chats: state.chats.map(c => ({

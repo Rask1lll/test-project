@@ -4,7 +4,6 @@ export interface Credentials {
   apiTokenInstance: string;
 }
 
-// Optional fields allow service events and unsupported media to pass through the queue.
 export interface NotificationBody {
   typeWebhook: string;
   timestamp?: number;

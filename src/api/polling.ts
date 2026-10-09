@@ -19,7 +19,6 @@ export function delay(ms: number, signal: AbortSignal): Promise<void> {
   });
 }
 
-/** A single consumer. Acknowledge only after processing; retries may redeliver a receipt. */
 export async function pollNotifications(
   api: GreenApi,
   signal: AbortSignal,
@@ -36,7 +35,6 @@ export async function pollNotifications(
         await api.deleteNotification(notification.receiptId, signal);
         if (disposition === "stop") return;
       } else {
-        // Protect against an endpoint returning null immediately instead of long polling.
         await delay(350, signal);
       }
       failures = 0;

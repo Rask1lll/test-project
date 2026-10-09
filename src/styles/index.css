@@ -1,4 +1,3 @@
-/* Import order is intentional: shared foundations before component rules. */
 @import './tokens.css';
 @import './global.css';
 @import './controls.css';

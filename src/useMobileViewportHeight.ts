@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// Mobile keyboards can resize the visual viewport without resizing the layout viewport.
 export function useMobileViewportHeight() {
   const [height, setHeight] = useState<number>();
   useEffect(() => {
