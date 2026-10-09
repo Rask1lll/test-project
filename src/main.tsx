@@ -7,6 +7,6 @@ import '@fontsource/ibm-plex-sans/latin-500.css';
 import '@fontsource/ibm-plex-sans/cyrillic-500.css';
 import '@fontsource/ibm-plex-sans/latin-600.css';
 import '@fontsource/ibm-plex-sans/cyrillic-600.css';
-import './styles.css';
+import './styles/index.css';
 
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);

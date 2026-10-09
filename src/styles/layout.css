@@ -1,0 +1,37 @@
+.login-page, .workspace {
+  max-width: 1400px;
+  height: calc(100dvh - 40px);
+  min-height: 480px;
+  margin: 0 auto;
+  border: 1px solid #ccd8dc;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.login-canvas, .conversation {
+  background: #d9e8de url('/conversation-paper.svg') center / cover;
+  position: relative;
+  min-width: 0;
+}
+
+@media (min-width: 1600px) {
+  .workspace, .login-page {
+    height: calc(100dvh - 64px);
+  }
+}
+
+@media (max-width: 1050px) {
+  .workspace, .login-page {
+    height: calc(100dvh - 24px);
+  }
+}
+
+@media (max-width: 720px) {
+  .workspace, .login-page {
+    height: var(--mobile-height, 100dvh);
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}

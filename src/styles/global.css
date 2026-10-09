@@ -1,0 +1,90 @@
+:root {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-synthesis: none;
+  font-weight: 400;
+  color: #263640;
+  background: #e7edef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+}
+
+button, input, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button, a, summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid #197bb0;
+  outline-offset: 3px;
+}
+
+input, textarea {
+  min-width: 0;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #798b94;
+  opacity: 1;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 1600px) {
+  body {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+@media (max-width: 1050px) {
+  body {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

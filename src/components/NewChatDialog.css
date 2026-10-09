@@ -1,0 +1,121 @@
+.new-chat-dialog {
+  width: 390px;
+  max-width: calc(100vw - 32px);
+  border: 0;
+  border-radius: 12px;
+  padding: 29px;
+  color: #263640;
+  box-shadow: 0 15px 60px #28453c30;
+}
+
+.new-chat-dialog::backdrop {
+  background: #20352d55;
+  backdrop-filter: blur(2px);
+}
+
+.dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.new-chat-dialog h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 13px;
+}
+
+.new-chat-dialog > p {
+  font-size: 14px;
+  color: #607581;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.new-chat-dialog input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cedbdf;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.new-chat-dialog small {
+  color: #607581;
+  font-size: 12px;
+  display: block;
+  margin-top: 9px;
+}
+
+.new-chat-dialog .primary-button {
+  margin-top: 25px;
+}
+
+@media (max-width: 720px) {
+  .new-chat-dialog input {
+    font-size: 16px;
+  }
+
+  .new-chat-dialog {
+    position: fixed;
+    inset: auto 0 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(var(--mobile-height, 100dvh) - 24px);
+    overflow-y: auto;
+    border-radius: 24px 24px 0 0;
+    padding: 30px 26px max(28px, env(safe-area-inset-bottom));
+    box-shadow: 0 -12px 50px #243e2c20;
+  }
+
+  .new-chat-dialog::backdrop {
+    background: #26364066;
+  }
+
+  .dialog-close {
+    top: 17px;
+    right: 18px;
+  }
+
+  .new-chat-dialog h2 {
+    font-size: 26px;
+    margin-bottom: 14px;
+    padding-right: 44px;
+  }
+
+  .new-chat-dialog > p {
+    font-size: 15px;
+    margin-bottom: 27px;
+  }
+
+  .new-chat-dialog input {
+    height: 54px;
+    border-radius: 10px;
+    background: #fafcfc;
+  }
+
+  .new-chat-dialog small {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .new-chat-dialog .primary-button {
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 720px) and (max-height: 560px) {
+  .new-chat-dialog {
+    padding-top: 23px;
+    padding-bottom: 20px;
+  }
+
+  .new-chat-dialog > p {
+    margin-bottom: 17px;
+  }
+
+  .new-chat-dialog .primary-button {
+    margin-top: 18px;
+  }
+}

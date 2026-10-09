@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import ChatWorkspace, { type Session } from './components/ChatWorkspace';
+import ChatWorkspace from './components/ChatWorkspace';
+import type { Session } from './types/session';
 import Login from './components/Login';
 
 export default function App() {

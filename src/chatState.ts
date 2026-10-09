@@ -1,20 +1,6 @@
-import type { Chat, Message, MessageStatus, NotificationBody } from './types';
+import type { ChatAction, ChatState, Message, MessageStatus } from './types/chat';
 
-export interface ChatState {
-  chats: Chat[];
-  selectedId: string | null;
-  statuses: Record<string, { status: MessageStatus; error?: string }>;
-}
 export const initialChatState: ChatState = { chats: [], selectedId: null, statuses: {} };
-export type ChatAction =
-  | { type: 'select'; id: string | null }
-  | { type: 'create'; id: string; phone: string; name?: string }
-  | { type: 'draft'; id: string; text: string }
-  | { type: 'add'; chatId: string; message: Message }
-  | { type: 'sent'; chatId: string; localId: string; serverId: string }
-  | { type: 'failed'; chatId: string; id: string; error: string }
-  | { type: 'notification'; body: NotificationBody };
-
 export function chatReducer(state: ChatState, action: ChatAction): ChatState {
   switch (action.type) {
     case 'select': return { ...state, selectedId: action.id, chats: state.chats.map(c => c.id === action.id ? { ...c, unread: 0 } : c) };

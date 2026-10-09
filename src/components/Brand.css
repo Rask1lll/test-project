@@ -1,0 +1,16 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand img {
+  height: 34px;
+  width: 34px;
+}
+
+.brand span {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -.4px;
+}

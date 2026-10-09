@@ -66,8 +66,10 @@ src/
   components/Login.tsx        Ввод данных и проверка подключения
   components/ChatWorkspace.tsx Переписки, отправка, приём, демо
   components/NewChatDialog.tsx Создание чата по номеру
-  types.ts                    Типы API и состояния
-  styles.css                  Адаптивная верстка
+  types/                      Контракты API, модели чатов и сессия
+  styles/                     Токены, базовые стили, элементы управления, каркас
+  components/*.css            Стили компонентов с адаптивными правилами
+  components/*.types.ts       Типы пропсов компонентов
 ```
 
 Стек: **React 19, TypeScript, Vite, Lucide**, тесты **Vitest + Testing Library**. Глобальная библиотека состояния не нужна: состояние одной сессии хранится в reducer, запросы вынесены из представления.

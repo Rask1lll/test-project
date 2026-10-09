@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { chatReducer, initialChatState } from './chatState';
-import type { NotificationBody } from './types';
+import type { NotificationBody } from './types/api';
 
 const incoming: NotificationBody = {
   typeWebhook: 'incomingMessageReceived', timestamp: 1763115112, idMessage: 'incoming-1',

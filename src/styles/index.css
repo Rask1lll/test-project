@@ -1,0 +1,9 @@
+/* Import order is intentional: shared foundations before component rules. */
+@import './tokens.css';
+@import './global.css';
+@import './controls.css';
+@import './layout.css';
+@import '../components/Brand.css';
+@import '../components/Login.css';
+@import '../components/ChatWorkspace.css';
+@import '../components/NewChatDialog.css';
